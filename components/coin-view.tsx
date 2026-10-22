@@ -64,6 +64,11 @@ export const CoinView = ({ mint }: { mint: string }) => {
     return () => window.clearInterval(timer);
   }, [mint]);
 
+  useEffect(() => {
+    if (!coin?.name) return;
+    document.title = coin.name;
+  }, [coin?.name]);
+
   const handleKeep = async (pull: Pull) => {
     if (!wallet.address || !pull.nft) return;
     setNote("");
@@ -116,9 +121,10 @@ export const CoinView = ({ mint }: { mint: string }) => {
   if (missing) {
     return (
       <div className="px-5 py-16 md:px-12">
-        <PageHead kicker="PACK" title="This coin was not launched here.">
-          Coins paired with CARDS show up with holders, slabs, and the next pack.
-        </PageHead>
+        <PageHead kicker="PACK" title="Launch this coin as a pack." />
+        <Link href="/launch" className="mt-8 inline-block rounded-full bg-rip px-5 py-3 font-display text-sm text-ink">
+          LAUNCH A COIN
+        </Link>
       </div>
     );
   }
@@ -182,7 +188,7 @@ export const CoinView = ({ mint }: { mint: string }) => {
           </dl>
         </div>
         <h2 className="mt-12 font-display text-xl text-rip">PULLS</h2>
-        {pulls.length === 0 ? <p className="mt-4 text-mute">No slabs for this coin yet.</p> : null}
+        {pulls.length === 0 ? <p className="mt-4 text-mute">The first slab for this coin lands here.</p> : null}
         {pulls.length > 0 ? (
           <ul className="mt-4 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {pulls.map((pull) => {

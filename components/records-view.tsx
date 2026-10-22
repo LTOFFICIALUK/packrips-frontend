@@ -48,8 +48,8 @@ export const RecordsView = () => {
         {offline ? <p className="mt-8 text-mute">The server did not answer.</p> : null}
         {records && records.length === 0 ? (
           <div className="mt-8 rounded-[18px] border-[1.5px] border-dashed border-line px-5 py-6">
-            <h2 className="font-display text-2xl">No draws yet.</h2>
-            <p className="mt-2 text-mute">Memo, roll, seed, and winner show up here after a pack is bought.</p>
+            <h2 className="font-display text-2xl">The first draw lands here.</h2>
+            <p className="mt-2 text-mute">Each draw shows its memo, roll, seed, snapshot and winner.</p>
           </div>
         ) : null}
         {records && records.length > 0 ? (

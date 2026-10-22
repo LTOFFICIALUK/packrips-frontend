@@ -13,7 +13,7 @@ const social = "/packrips-social-20261022.png?v=20261022";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://packrips.fun"),
-  title: { default: "Pack Rips", template: "%s · Pack Rips" },
+  title: { default: "Pack Rips · Every coin is a pack.", template: "%s · Pack Rips" },
   description,
   icons: { icon: "/mark-white.svg" },
   openGraph: {

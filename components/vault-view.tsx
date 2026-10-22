@@ -39,8 +39,8 @@ export const VaultView = () => {
         {offline ? <p className="mt-8 text-mute">The server did not answer.</p> : null}
         {cards && cards.length === 0 ? (
           <div className="mt-8 rounded-[18px] border-[1.5px] border-dashed border-line px-5 py-6">
-            <h2 className="font-display text-2xl">No slabs in the vault yet.</h2>
-            <p className="mt-2 text-mute">They show up here after a pack is bought and opened.</p>
+            <h2 className="font-display text-2xl">The first slab lands here.</h2>
+            <p className="mt-2 text-mute">Every slab bought shows its image, grade, insured value and holder.</p>
           </div>
         ) : null}
         {cards && cards.length > 0 ? (

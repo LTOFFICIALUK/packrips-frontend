@@ -36,7 +36,7 @@ export const PacksView = () => {
     <div className="px-5 py-10 md:px-12">
       <div className="mx-auto max-w-[1200px]">
         <PageHead kicker="PACKS" title="Every coin is a pack.">
-          Coins launched on Pack Rips. Holders, slabs, and the fee balance are read from the server.
+          Every coin launched on Pack Rips. Its holders, its slabs and its next pack.
         </PageHead>
         {site?.seedWallet ? (
           <p className="mt-4 font-mono text-xs text-mute">
@@ -49,7 +49,7 @@ export const PacksView = () => {
         {offline ? <p className="mt-8 text-mute">The server did not answer.</p> : null}
         {coins && coins.length === 0 ? (
           <div className="mt-8 rounded-[18px] border-[1.5px] border-dashed border-line px-5 py-6">
-            <h2 className="font-display text-2xl">The first pack has not launched.</h2>
+            <h2 className="font-display text-2xl">The first pack lands here.</h2>
             <Link href="/launch" className="mt-5 inline-block rounded-full bg-rip px-5 py-3 font-display text-sm text-ink">
               LAUNCH THE FIRST PACK
             </Link>
