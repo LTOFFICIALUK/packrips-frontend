@@ -82,7 +82,7 @@ export const HomeView = () => {
               </div>
             </div>
             <div className="hero-pack-slot">
-              <HeroPack />
+              <HeroPack ticker="$RIPS" subline="1 GRADED SLAB INSIDE" />
             </div>
           </div>
         </div>

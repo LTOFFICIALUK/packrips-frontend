@@ -4,7 +4,7 @@ import { Keypair, Transaction, VersionedTransaction } from "@solana/web3.js";
 import bs58 from "bs58";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { PreviewPack } from "@/components/pack-art";
+import { HeroPack } from "@/components/pack-art";
 import { Field, fieldClass } from "@/components/ui";
 import { getJson } from "@/lib/api";
 import { useWallet } from "@/lib/wallet";
@@ -118,8 +118,10 @@ export const LaunchForm = () => {
           <p className="mt-4 max-w-md text-lg leading-snug text-mute">
             Each coin gets its own creator wallet, so its fees stay separate. 90% buys slabs for that coin&apos;s holders. 10% goes to the platform.
           </p>
-          <div className="mt-8">
-            <PreviewPack name={name} symbol={ticker} image={image} />
+          <div className="mt-8 lg:sticky lg:top-6 lg:self-start">
+            <div className="hero-pack-slot">
+              <HeroPack ticker={ticker ? `$${ticker}` : "$YOURCOIN"} image={image} subline={name.trim() ? name.trim() : "LAUNCH IT AS A PACK"} />
+            </div>
             <p className="mt-6 flex flex-wrap gap-x-2 gap-y-1 font-mono text-[11px] uppercase tracking-wide text-mute">
               <span>Launch a coin</span>
               <span className="text-rip" aria-hidden="true">
