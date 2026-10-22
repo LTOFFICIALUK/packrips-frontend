@@ -4,6 +4,7 @@ import { Keypair, Transaction, VersionedTransaction } from "@solana/web3.js";
 import bs58 from "bs58";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { PreviewPack } from "@/components/pack-art";
 import { Field, fieldClass } from "@/components/ui";
 import { getJson } from "@/lib/api";
 import { useWallet } from "@/lib/wallet";
@@ -39,12 +40,14 @@ export const LaunchForm = () => {
   const [devBuy, setDevBuy] = useState("");
   const [vanity, setVanity] = useState("");
   const [image, setImage] = useState("");
+  const [fileName, setFileName] = useState("");
   const [busy, setBusy] = useState(false);
   const [note, setNote] = useState("");
   const ticker = symbol.trim().toUpperCase();
 
   const handleFile = (file: File | undefined) => {
     if (!file) return;
+    setFileName(file.name);
     const reader = new FileReader();
     reader.onload = () => setImage(String(reader.result || ""));
     reader.readAsDataURL(file);
@@ -113,12 +116,24 @@ export const LaunchForm = () => {
           <p className="font-mono text-[11px] tracking-[0.16em] text-rip">PAIRED WITH CARDS</p>
           <h1 className="mt-3 font-display text-4xl leading-none md:text-5xl">Launch a coin</h1>
           <p className="mt-4 max-w-md text-lg leading-snug text-mute">
-            Each coin gets its own creator wallet, so its fees stay separate. 90 percent buys slabs for that coin&apos;s holders. 10 percent goes to the platform.
+            Each coin gets its own creator wallet, so its fees stay separate. 90% buys slabs for that coin&apos;s holders. 10% goes to the platform.
           </p>
-          <div className="mt-8 rounded-[18px] border-[1.5px] border-line bg-ink px-5 py-8 text-center">
-            {image ? <img src={image} alt={name || "Coin image"} className="mx-auto mb-4 h-28 w-28 rounded-[14px] object-cover" /> : null}
-            <p className="font-display text-4xl text-rip">{ticker ? `$${ticker}` : "YOUR COIN"}</p>
-            <p className="mt-2 font-mono text-[11px] tracking-[0.16em] text-rip">LAUNCH IT AS A PACK</p>
+          <div className="mt-8">
+            <PreviewPack name={name} symbol={ticker} image={image} />
+            <p className="mt-6 flex flex-wrap gap-x-2 gap-y-1 font-mono text-[11px] uppercase tracking-wide text-mute">
+              <span>Launch a coin</span>
+              <span className="text-rip" aria-hidden="true">
+                →
+              </span>
+              <span>Fees buy slabs</span>
+              <span className="text-rip" aria-hidden="true">
+                →
+              </span>
+              <span>Holders get drawn</span>
+            </p>
+            <p className="mt-3 max-w-sm text-sm leading-snug text-mute">
+              Cost is the pump.fun creation, plus a dev buy only if you enter one. That SOL swaps to CARDS, then buys the coin.
+            </p>
           </div>
         </div>
         <form
@@ -128,34 +143,40 @@ export const LaunchForm = () => {
             void handleLaunch().catch((err) => setNote(err instanceof Error ? err.message : "Launch needs another try."));
           }}
         >
-          <Field label="Name">
+          <Field label="NAME">
             <input value={name} onChange={(event) => setName(event.target.value)} maxLength={32} required className={fieldClass} />
           </Field>
-          <Field label="Ticker">
+          <Field label="TICKER">
             <input value={symbol} onChange={(event) => setSymbol(event.target.value.toUpperCase())} maxLength={13} required className={`${fieldClass} font-mono`} />
           </Field>
-          <Field label="Image">
-            <input
-              type="file"
-              accept="image/png,image/jpeg,image/webp"
-              required
-              onChange={(event) => handleFile(event.target.files?.[0])}
-              className="text-sm text-mute file:mr-3 file:rounded-full file:border-0 file:bg-rip file:px-3 file:py-2 file:font-display file:text-ink"
-            />
+          <Field label="IMAGE">
+            <div className="flex flex-wrap items-center gap-3">
+              <label className="inline-flex cursor-pointer items-center bg-rip px-3 py-2 font-mono text-[11px] uppercase tracking-wide text-ink shadow-[3px_3px_0_#140400]">
+                Choose image
+                <input
+                  type="file"
+                  accept="image/png,image/jpeg,image/webp"
+                  required
+                  onChange={(event) => handleFile(event.target.files?.[0])}
+                  className="sr-only"
+                />
+              </label>
+              {fileName ? <span className="font-mono text-xs text-paper">{fileName}</span> : null}
+            </div>
           </Field>
-          <Field label="Description">
+          <Field label="DESCRIPTION">
             <textarea value={description} onChange={(event) => setDescription(event.target.value)} maxLength={500} rows={4} className={fieldClass} />
           </Field>
-          <Field label="X link">
+          <Field label="X LINK">
             <input value={xUrl} onChange={(event) => setXUrl(event.target.value)} placeholder="https://x.com/" inputMode="url" className={fieldClass} />
           </Field>
-          <Field label="Website" hint="Optional. This address is written into the coin metadata.">
+          <Field label="WEBSITE" hint="Optional. This address is written into the coin metadata.">
             <input value={website} onChange={(event) => setWebsite(event.target.value)} placeholder="https://" inputMode="url" className={fieldClass} />
           </Field>
-          <Field label="Dev buy in SOL" hint="Optional. SOL swaps to CARDS, then buys the coin. Extra CARDS stays in your wallet.">
+          <Field label="DEV BUY IN SOL" hint="Optional. SOL swaps to CARDS, then buys the coin. Extra CARDS stays in your wallet.">
             <input value={devBuy} onChange={(event) => setDevBuy(event.target.value)} inputMode="decimal" placeholder="0" className={`${fieldClass} font-mono`} />
           </Field>
-          <Field label="Vanity suffix" hint="Optional. One or two characters at the end of the mint.">
+          <Field label="VANITY SUFFIX" hint="Optional. One or two characters at the end of the mint.">
             <input
               value={vanity}
               onChange={(event) => setVanity(event.target.value.replace(/[^a-zA-Z0-9]/g, "").slice(0, 2))}
