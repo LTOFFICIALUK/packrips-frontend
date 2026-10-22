@@ -1,0 +1,75 @@
+@import "tailwindcss";
+
+@theme {
+  --color-rip: #ff4d2e;
+  --color-ink: #140400;
+  --color-paper: #f4f2ee;
+  --color-mute: #8e8c88;
+  --color-line: #3a2e28;
+  --font-sans: var(--font-body), sans-serif;
+  --font-mono: var(--font-code), ui-monospace, monospace;
+}
+
+html,
+body {
+  background: #000;
+  color: #f4f2ee;
+  min-height: 100%;
+}
+
+body {
+  font-family: var(--font-body), sans-serif;
+  overflow-x: hidden;
+}
+
+.font-display {
+  font-family: var(--font-bungee), sans-serif;
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid #ff4d2e;
+  outline-offset: 2px;
+}
+
+::selection {
+  background: #ff4d2e;
+  color: #140400;
+}
+
+@keyframes rip-tear {
+  from {
+    clip-path: inset(0 0 100% 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.rip-tear {
+  animation: rip-tear 720ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+.rise-in {
+  animation: rise-in 640ms cubic-bezier(0.2, 0.8, 0.2, 1) 520ms both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rip-tear,
+  .rise-in {
+    animation: none;
+  }
+}
