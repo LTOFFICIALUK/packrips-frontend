@@ -81,7 +81,9 @@ export const HomeView = () => {
                 </Link>
               </div>
             </div>
-            <HeroPack />
+            <div className="hero-pack-slot">
+              <HeroPack />
+            </div>
           </div>
         </div>
         <Zigzag />

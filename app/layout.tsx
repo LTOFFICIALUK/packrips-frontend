@@ -6,7 +6,7 @@ import "./globals.css";
 
 const display = Bungee({ weight: "400", subsets: ["latin"], variable: "--font-bungee" });
 const body = Bricolage_Grotesque({ weight: ["400", "600", "700"], subsets: ["latin"], variable: "--font-body" });
-const mono = JetBrains_Mono({ weight: ["400", "500"], subsets: ["latin"], variable: "--font-code" });
+const mono = JetBrains_Mono({ weight: ["400", "500", "700"], subsets: ["latin"], variable: "--font-code" });
 
 const description = "Every coin is a pack. Its fees buy real graded cards, and holders get drawn to pull them.";
 const social = "/packrips-social-20261022.png?v=20261022";
