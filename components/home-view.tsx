@@ -49,8 +49,6 @@ export const HomeView = () => {
   }, []);
 
   const live = pulls || [];
-  const latest = live[0] || null;
-  const slabs = pulls ? live.length : null;
 
   return (
     <div>
@@ -83,7 +81,7 @@ export const HomeView = () => {
                 </Link>
               </div>
             </div>
-            <HeroPack symbol={latest?.symbol || null} slabs={latest ? slabs : null} grade={latest?.grade || null} />
+            <HeroPack />
           </div>
         </div>
         <Zigzag />
@@ -157,7 +155,9 @@ export const HomeView = () => {
             </p>
           ) : null}
           {coins && coins.length > 0 && live.length === 0 ? (
-            <p className="mt-4 font-mono text-xs text-mute">{coins.length} coin{coins.length === 1 ? "" : "s"} launched. No slabs yet.</p>
+            <p className="mt-4 font-mono text-xs text-mute">
+              {coins.length} coin{coins.length === 1 ? "" : "s"} launched.
+            </p>
           ) : null}
         </div>
       </section>
