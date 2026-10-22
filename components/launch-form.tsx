@@ -120,7 +120,7 @@ export const LaunchForm = () => {
           </p>
           <div className="mt-8 lg:sticky lg:top-6 lg:self-start">
             <div className="hero-pack-slot">
-              <HeroPack ticker={ticker ? `$${ticker}` : "$YOURCOIN"} image={image} subline={name.trim() ? name.trim() : "LAUNCH IT AS A PACK"} />
+              <HeroPack outline ticker={ticker ? `$${ticker}` : "$YOURCOIN"} image={image} subline={name.trim() ? name.trim() : "LAUNCH IT AS A PACK"} />
             </div>
             <p className="mt-6 flex flex-wrap gap-x-2 gap-y-1 font-mono text-[11px] uppercase tracking-wide text-mute">
               <span>Launch a coin</span>

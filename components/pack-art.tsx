@@ -5,10 +5,22 @@ import { useEffect, useRef, useState } from "react";
 const TICKER_SIZE = 33.12;
 const TICKER_FIT = 248;
 
-export const HeroPack = ({ ticker, image, subline }: { ticker: string; image?: string; subline: string }) => {
+export const HeroPack = ({
+  ticker,
+  image,
+  subline,
+  outline = false,
+}: {
+  ticker: string;
+  image?: string;
+  subline: string;
+  outline?: boolean;
+}) => {
   const tickerRef = useRef<SVGTextElement>(null);
   const [tickerSize, setTickerSize] = useState(TICKER_SIZE);
   const art = image || "";
+  const tickerY = art ? 196 : 168;
+  const sublineY = art ? 212 : 189;
 
   useEffect(() => {
     const node = tickerRef.current;
@@ -17,7 +29,7 @@ export const HeroPack = ({ ticker, image, subline }: { ticker: string; image?: s
     const width = node.getBBox().width;
     const next = width > TICKER_FIT ? TICKER_SIZE * (TICKER_FIT / width) : TICKER_SIZE;
     setTickerSize(Number(next.toFixed(2)));
-  }, [ticker]);
+  }, [ticker, tickerY]);
 
   return (
     <div id="hero-pack">
@@ -60,22 +72,15 @@ export const HeroPack = ({ ticker, image, subline }: { ticker: string; image?: s
               </div>
             </div>
             <div style={{ position: "absolute", left: 26, right: 26, top: 88, bottom: 26, borderRadius: 10, overflow: "hidden" }}>
-              {art ? (
-                <img src={art} alt="" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }} />
-              ) : (
-                <div className="holo" style={{ position: "absolute", inset: 0, opacity: 0.9 }} />
-              )}
-              {art ? null : (
-                <div
-                  style={{
-                    position: "absolute",
-                    inset: 0,
-                    background:
-                      "repeating-linear-gradient(115deg,rgba(255,255,255,0) 0 14px,rgba(255,255,255,.28) 14px 18px),radial-gradient(circle at 30% 20%,rgba(255,255,255,.55),transparent 45%)",
-                  }}
-                />
-              )}
-              <div className="shine" />
+              <div className="holo" style={{ position: "absolute", inset: 0, opacity: 0.9 }} />
+              <div
+                style={{
+                  position: "absolute",
+                  inset: 0,
+                  background:
+                    "repeating-linear-gradient(115deg,rgba(255,255,255,0) 0 14px,rgba(255,255,255,.28) 14px 18px),radial-gradient(circle at 30% 20%,rgba(255,255,255,.55),transparent 45%)",
+                }}
+              />
               <div style={{ position: "absolute", inset: 0, borderRadius: 10, border: "2px solid rgba(0,0,0,.35)" }} />
             </div>
           </div>
@@ -84,22 +89,29 @@ export const HeroPack = ({ ticker, image, subline }: { ticker: string; image?: s
           <polygon
             points="0,10 0,10 13,0 27,10 40,0 53,10 67,0 80,10 93,0 107,10 120,0 133,10 147,0 160,10 173,0 187,10 200,0 213,10 227,0 240,10 253,0 267,10 280,0 293,10 307,0 320,10 320,10 320,290 320,290 307,300 293,290 280,300 267,290 253,300 240,290 227,300 213,290 200,300 187,290 173,300 160,290 147,300 133,290 120,300 107,290 93,300 80,290 67,300 53,290 40,300 27,290 13,300 0,290 0,290"
             fill="#140400"
+            stroke={outline ? "#FF4D2E" : "none"}
+            strokeWidth={outline ? 2 : 0}
+            vectorEffect="non-scaling-stroke"
           />
-          <text
-            ref={tickerRef}
-            x="160"
-            y="168"
-            textAnchor="middle"
-            fill="#FF4D2E"
-            style={{ font: `400 ${tickerSize}px var(--font-bungee)` }}
-          >
+          {art ? (
+            <>
+              <defs>
+                <clipPath id="launch-pack-face">
+                  <rect x="125" y="88" width="70" height="70" rx="12" ry="12" />
+                </clipPath>
+              </defs>
+              <image href={art} x="125" y="88" width="70" height="70" clipPath="url(#launch-pack-face)" preserveAspectRatio="xMidYMid slice" />
+            </>
+          ) : null}
+          <text ref={tickerRef} x="160" y={tickerY} textAnchor="middle" fill="#FF4D2E" style={{ font: `400 ${tickerSize}px var(--font-bungee)` }}>
             {ticker}
           </text>
-          <foreignObject x="28" y="184" width="264" height="26">
+          <foreignObject x="16" y={sublineY} width="288" height="22">
             <div
               xmlns="http://www.w3.org/1999/xhtml"
               style={{
                 font: "400 14px var(--font-code)",
+                lineHeight: "18px",
                 color: "#FF4D2E",
                 opacity: 0.7,
                 textAlign: "center",

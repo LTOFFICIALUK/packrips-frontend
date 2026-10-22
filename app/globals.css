@@ -63,36 +63,6 @@ textarea:focus-visible {
   background: conic-gradient(from 210deg at 50% 45%, #ff4d2e, #fff4ec, #ff4d2e, #1a1a1a, #ff4d2e, #fff4ec, #ff4d2e);
 }
 
-.shine {
-  position: absolute;
-  inset: 0;
-  border-radius: 10px;
-  overflow: hidden;
-  pointer-events: none;
-}
-
-.shine:after {
-  content: "";
-  position: absolute;
-  top: -20%;
-  bottom: -20%;
-  width: 40%;
-  left: -60%;
-  background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.65), transparent);
-  transform: skewX(-12deg);
-  animation: sweep 2.8s ease-in-out infinite;
-}
-
-@keyframes sweep {
-  0% {
-    left: -60%;
-  }
-  55%,
-  100% {
-    left: 130%;
-  }
-}
-
 .hero-pack-slot {
   width: 320px;
   height: 480px;
@@ -121,8 +91,7 @@ textarea:focus-visible {
 
 @media (prefers-reduced-motion: reduce) {
   .rip-tear,
-  .rise-in,
-  .shine:after {
+  .rise-in {
     animation: none;
   }
 }
