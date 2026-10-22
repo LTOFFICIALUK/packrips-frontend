@@ -108,7 +108,6 @@ export const HeroPack = ({
           </text>
           <foreignObject x="16" y={sublineY} width="288" height="22">
             <div
-              xmlns="http://www.w3.org/1999/xhtml"
               style={{
                 font: "400 14px var(--font-code)",
                 lineHeight: "18px",
